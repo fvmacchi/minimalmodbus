@@ -31,7 +31,7 @@ setup(
     url          = metadata['url'],
     description="Easy-to-use Modbus RTU and Modbus ASCII implementation for Python",
     long_description=readme + '\n\n' + history,
-    install_requires = ['pyserial'],
+    install_requires = ['pyserial', 'Adafruit_BBIO'],
     py_modules = ['minimalmodbus', 'eurotherm3500', 'omegacn7500', 'dummy_serial'],
     keywords='minimalmodbus modbus serial RTU ASCII',
     classifiers=[

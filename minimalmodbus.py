@@ -36,6 +36,7 @@ import serial
 import struct
 import sys
 import time
+import Adafruit_BBIO.GPIO as GPIO
 
 if sys.version > '3':
     import binascii
@@ -152,6 +153,9 @@ class Instrument():
 
         New in version 0.7.
         """
+
+        self.gpio_rts = None
+        self.gpio_rts_active_low = False
 
         if  self.close_port_after_each_call:
             self.serial.close()
@@ -890,7 +894,20 @@ class Instrument():
         # Write request
         latest_write_time = time.time()
         
+        if self.gpio_rts != None:
+            GPIO.setup(self.gpio_rts, GPIO.OUT)
+            if self.gpio_rts_active_low:
+                GPIO.output(GPIO.LOW)
+            else
+                GPIO.output(GPIO.HIGH)
+
         self.serial.write(request)
+
+        if self.gpio_rts != None:
+            if self.gpio_rts_active_low:
+                GPIO.output(GPIO.HIGH)
+            else
+                GPIO.output(GPIO.LOW)
 
         # Read and discard local echo
         if self.handle_local_echo:
