@@ -898,7 +898,7 @@ class Instrument():
             GPIO.setup(self.gpio_rts, GPIO.OUT)
             if self.gpio_rts_active_low:
                 GPIO.output(GPIO.LOW)
-            else
+            else:
                 GPIO.output(GPIO.HIGH)
 
         self.serial.write(request)
@@ -906,7 +906,7 @@ class Instrument():
         if self.gpio_rts != None:
             if self.gpio_rts_active_low:
                 GPIO.output(GPIO.HIGH)
-            else
+            else:
                 GPIO.output(GPIO.LOW)
 
         # Read and discard local echo
