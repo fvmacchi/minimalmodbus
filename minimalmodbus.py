@@ -903,12 +903,6 @@ class Instrument():
 
         self.serial.write(request)
 
-        if self.gpio_rts != None:
-            if self.gpio_rts_active_low:
-                GPIO.output(self.gpio_rts,GPIO.HIGH)
-            else:
-                GPIO.output(self.gpio_rts,GPIO.LOW)
-
         # Read and discard local echo
         if self.handle_local_echo:
             localEchoToDiscard = self.serial.read(len(request))
@@ -921,6 +915,12 @@ class Instrument():
                     'Request: {!r} ({} bytes), local echo: {!r} ({} bytes).' 
                 text = template.format(request, len(request), localEchoToDiscard, len(localEchoToDiscard))
                 raise IOError(text)
+
+        if self.gpio_rts != None:
+            if self.gpio_rts_active_low:
+                GPIO.output(self.gpio_rts,GPIO.HIGH)
+            else:
+                GPIO.output(self.gpio_rts,GPIO.LOW)
 
         # Read response
         answer = self.serial.read(number_of_bytes_to_read)
